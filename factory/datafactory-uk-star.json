@@ -1,0 +1,9 @@
+{
+	"name": "datafactory-uk-star",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5d731692-c56e-4783-b8bf-c0fc163c3620",
+		"tenantId": "6a1cd45c-ebe3-4022-8b13-5c488f30ff32"
+	}
+}
