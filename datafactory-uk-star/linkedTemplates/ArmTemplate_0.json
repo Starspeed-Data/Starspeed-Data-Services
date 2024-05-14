@@ -231,7 +231,9 @@
 								"upsertSettings": {
 									"useTempDB": true,
 									"keys": [
-										"ID"
+										"ID",
+										"Name",
+										"Age"
 									]
 								},
 								"sqlWriterUseTableLock": false
