@@ -1,0 +1,13 @@
+{
+	"name": "starspeeddatalake",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Starspeed Azure Data Lake Storage Gen 2",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://starspeeddatalake.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDVGMEFDNEFCLTZEQ0MtNDk4My1BNjQ3LTg3M0YyQUEyQkY2Q18yMWYyMGM3Yy05NmZlLTQ0ZjEtOTIzNC01MzQ5NmRhYjRjMDUiDQp9"
+		}
+	}
+}
