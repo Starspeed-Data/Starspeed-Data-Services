@@ -1,0 +1,20 @@
+{
+	"name": "ADL_Pre_Staging_Active_Personnel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "starspeeddatalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "active_personnel_api_data.json",
+				"folderPath": "PreStaging",
+				"fileSystem": "training"
+			}
+		},
+		"schema": {}
+	}
+}
