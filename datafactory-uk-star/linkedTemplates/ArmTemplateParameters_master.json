@@ -11,6 +11,9 @@
 		"starspeeddatalake_accountKey": {
 			"value": ""
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
+		},
 		"starspeeddatalake_properties_typeProperties_url": {
 			"value": "https://starspeeddatalake.dfs.core.windows.net/"
 		},
