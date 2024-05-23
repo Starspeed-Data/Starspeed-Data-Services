@@ -1,0 +1,39 @@
+{
+	"name": "API_Air_Maestro_Active_Personnel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"LastName": {
+					"type": "string"
+				},
+				"FirstName": {
+					"type": "string"
+				},
+				"EmploymentStart": {
+					"type": "string"
+				},
+				"JobPosition": {
+					"type": "string"
+				},
+				"BaseName": {
+					"type": "string"
+				},
+				"LastLogin": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
