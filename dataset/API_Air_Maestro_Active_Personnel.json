@@ -5,6 +5,9 @@
 			"referenceName": "HttpServer1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "API_Air_Maestro"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {

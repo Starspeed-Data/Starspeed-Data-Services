@@ -5,6 +5,9 @@
 			"referenceName": "starspeeddatalake",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "ADL"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {

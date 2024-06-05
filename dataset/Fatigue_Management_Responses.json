@@ -1,0 +1,69 @@
+{
+	"name": "Fatigue_Management_Responses",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FullName",
+				"type": "varchar"
+			},
+			{
+				"name": "Email",
+				"type": "varchar"
+			},
+			{
+				"name": "Date",
+				"type": "date"
+			},
+			{
+				"name": "Location",
+				"type": "varchar"
+			},
+			{
+				"name": "RotationWeek",
+				"type": "varchar"
+			},
+			{
+				"name": "CurrentShiftPattern",
+				"type": "varchar"
+			},
+			{
+				"name": "Last24HoursShiftPattern",
+				"type": "varchar"
+			},
+			{
+				"name": "SleepDuration",
+				"type": "varchar"
+			},
+			{
+				"name": "RestQuality",
+				"type": "varchar"
+			},
+			{
+				"name": "FatigueLevel",
+				"type": "varchar"
+			},
+			{
+				"name": "Comments",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "PB",
+			"table": "FACT_FatigueFormResponses"
+		}
+	}
+}

@@ -93,12 +93,6 @@
 						"referenceName": "ADL_Pre_Staging_Active_Personnel",
 						"type": "DatasetReference"
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_Server_Active_Personnel",
-						"type": "DatasetReference"
-					}
 				]
 			}
 		],
