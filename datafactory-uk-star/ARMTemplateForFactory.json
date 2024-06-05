@@ -83,59 +83,6 @@
 								"parameters": {}
 							}
 						]
-					},
-					{
-						"name": "Copy data2",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Copy data1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SqlServerSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "ADL_Pre_Staging_Active_Personnel",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SQL_Server_Active_Personnel",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
 					}
 				],
 				"policy": {
@@ -148,8 +95,157 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/API_Air_Maestro_Active_Personnel')]",
-				"[concat(variables('factoryId'), '/datasets/ADL_Pre_Staging_Active_Personnel')]",
-				"[concat(variables('factoryId'), '/datasets/SQL_Server_Active_Personnel')]"
+				"[concat(variables('factoryId'), '/datasets/ADL_Pre_Staging_Active_Personnel')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy_Fatigue_Responses')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "SqlServerSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ADL_Fatigue_Form_Responses",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Fatigue_Management_Responses",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PB"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ADL_Fatigue_Form_Responses')]",
+				"[concat(variables('factoryId'), '/datasets/Fatigue_Management_Responses')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADL_Fatigue_Form_Responses')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "starspeeddatalake",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ADL"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Fatigue Management",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Fatigue_Management_Responses.xlsx",
+						"folderPath": "fatigue-management",
+						"fileSystem": "fatigue-management"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "ID",
+						"type": "String"
+					},
+					{
+						"name": "Full Name",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Location",
+						"type": "String"
+					},
+					{
+						"name": "Week of Rotation",
+						"type": "String"
+					},
+					{
+						"name": "Current Shift Pattern",
+						"type": "String"
+					},
+					{
+						"name": "Shift Pattern - Last 24 Hours",
+						"type": "String"
+					},
+					{
+						"name": "Sleep Duration",
+						"type": "String"
+					},
+					{
+						"name": "Rest Quality",
+						"type": "String"
+					},
+					{
+						"name": "Fatigue Level",
+						"type": "String"
+					},
+					{
+						"name": "Comments",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/starspeeddatalake')]"
 			]
 		},
 		{
@@ -160,6 +256,9 @@
 				"linkedServiceName": {
 					"referenceName": "starspeeddatalake",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ADL"
 				},
 				"annotations": [],
 				"type": "Json",
@@ -185,6 +284,9 @@
 				"linkedServiceName": {
 					"referenceName": "HttpServer1",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "API_Air_Maestro"
 				},
 				"annotations": [],
 				"type": "Json",
@@ -222,7 +324,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SQL_Server_Active_Personnel')]",
+			"name": "[concat(parameters('factoryName'), '/Fatigue_Management_Responses')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -230,12 +332,65 @@
 					"referenceName": "SqlServer1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "SQL"
+				},
 				"annotations": [],
 				"type": "SqlServerTable",
-				"schema": [],
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FullName",
+						"type": "varchar"
+					},
+					{
+						"name": "Email",
+						"type": "varchar"
+					},
+					{
+						"name": "Date",
+						"type": "date"
+					},
+					{
+						"name": "Location",
+						"type": "varchar"
+					},
+					{
+						"name": "RotationWeek",
+						"type": "varchar"
+					},
+					{
+						"name": "CurrentShiftPattern",
+						"type": "varchar"
+					},
+					{
+						"name": "Last24HoursShiftPattern",
+						"type": "varchar"
+					},
+					{
+						"name": "SleepDuration",
+						"type": "varchar"
+					},
+					{
+						"name": "RestQuality",
+						"type": "varchar"
+					},
+					{
+						"name": "FatigueLevel",
+						"type": "varchar"
+					},
+					{
+						"name": "Comments",
+						"type": "varchar"
+					}
+				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "Fact_Active_Personnel"
+					"schema": "PB",
+					"table": "FACT_FatigueFormResponses"
 				}
 			},
 			"dependsOn": [
