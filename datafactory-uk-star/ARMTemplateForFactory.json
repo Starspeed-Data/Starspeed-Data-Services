@@ -184,6 +184,18 @@
 									},
 									{
 										"source": {
+											"name": "Submission",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "SubmissionTimestamp",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
 											"name": "Location",
 											"type": "String",
 											"physicalType": "String"
