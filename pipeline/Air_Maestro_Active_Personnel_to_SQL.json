@@ -42,12 +42,6 @@
 						"referenceName": "API_Air_Maestro_Active_Personnel",
 						"type": "DatasetReference"
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ADL_Pre_Staging_Active_Personnel",
-						"type": "DatasetReference"
-					}
 				]
 			}
 		],

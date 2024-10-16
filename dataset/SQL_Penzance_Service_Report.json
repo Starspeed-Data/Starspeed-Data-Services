@@ -1,0 +1,152 @@
+{
+	"name": "SQL_Penzance_Service_Report",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "PNRRef",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PNRID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PNRDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ServiceDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ServiceType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ClassCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RouteNameDetails",
+				"type": "nvarchar"
+			},
+			{
+				"name": "From",
+				"type": "nvarchar"
+			},
+			{
+				"name": "To",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ServiceLoad",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Adults",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Kids",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Infants",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Fare",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "VAT",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "TotalTax",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Tax1",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Tax2",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Tax3",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Tax4",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Total",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Currency",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RemarkDetails",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LastKnownInvoice",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "TicketNumber",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "AgentName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CustomerName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "User",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Column",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "penzance",
+			"table": "fct_service_report"
+		}
+	}
+}
