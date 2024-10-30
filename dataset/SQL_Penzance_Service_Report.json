@@ -146,7 +146,7 @@
 		],
 		"typeProperties": {
 			"schema": "penzance",
-			"table": "fct_service_report"
+			"table": "customer_bookings"
 		}
 	}
 }
