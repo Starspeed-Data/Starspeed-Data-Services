@@ -49,8 +49,7 @@
 								},
 								"sink": {
 									"name": "PNRRef",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "String"
 								}
 							},
 							{
@@ -60,8 +59,7 @@
 								},
 								"sink": {
 									"name": "PNRID",
-									"type": "Int32",
-									"physicalType": "int"
+									"type": "Int32"
 								}
 							},
 							{
@@ -71,24 +69,12 @@
 								},
 								"sink": {
 									"name": "PNRDate",
-									"type": "DateTime",
-									"physicalType": "datetime2"
+									"type": "DateTime"
 								}
 							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
+						]
 					}
 				},
-				"inputs": [
-					{
-						"referenceName": "Service_Reports",
-						"type": "DatasetReference"
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "SQL_Penzance_Service_Report",
