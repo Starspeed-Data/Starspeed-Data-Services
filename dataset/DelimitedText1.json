@@ -1,0 +1,159 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Azure Blob Storage"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Customer Booking Data.csv",
+				"container": "aero-c"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PNR ref.",
+				"type": "String"
+			},
+			{
+				"name": "PNR ID",
+				"type": "String"
+			},
+			{
+				"name": "PNR Date",
+				"type": "String"
+			},
+			{
+				"name": "PNR Time",
+				"type": "String"
+			},
+			{
+				"name": "Service Date",
+				"type": "String"
+			},
+			{
+				"name": "Service Time",
+				"type": "String"
+			},
+			{
+				"name": "Days Before",
+				"type": "String"
+			},
+			{
+				"name": "Months Before",
+				"type": "String"
+			},
+			{
+				"name": "Service type",
+				"type": "String"
+			},
+			{
+				"name": "Class/Code",
+				"type": "String"
+			},
+			{
+				"name": "Route Name/Details",
+				"type": "String"
+			},
+			{
+				"name": "From",
+				"type": "String"
+			},
+			{
+				"name": "To",
+				"type": "String"
+			},
+			{
+				"name": "Service load",
+				"type": "String"
+			},
+			{
+				"name": "Adults",
+				"type": "String"
+			},
+			{
+				"name": "Kids",
+				"type": "String"
+			},
+			{
+				"name": "Infants",
+				"type": "String"
+			},
+			{
+				"name": "Fare",
+				"type": "String"
+			},
+			{
+				"name": "VAT",
+				"type": "String"
+			},
+			{
+				"name": "Total Tax",
+				"type": "String"
+			},
+			{
+				"name": "Tax1",
+				"type": "String"
+			},
+			{
+				"name": "Tax2",
+				"type": "String"
+			},
+			{
+				"name": "Tax3",
+				"type": "String"
+			},
+			{
+				"name": "Tax4",
+				"type": "String"
+			},
+			{
+				"name": "Total",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "Remark/Details",
+				"type": "String"
+			},
+			{
+				"name": "Last known invoice",
+				"type": "String"
+			},
+			{
+				"name": "Ticket number",
+				"type": "String"
+			},
+			{
+				"name": "Agent name",
+				"type": "String"
+			},
+			{
+				"name": "Customer name",
+				"type": "String"
+			},
+			{
+				"name": "User",
+				"type": "String"
+			},
+			{
+				"name": "Column1",
+				"type": "String"
+			}
+		]
+	}
+}
