@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Positioning_Data_June_2024.csv",
+				"fileName": "Positioning_Data_June_2024_Formatted.csv",
 				"container": "temp-files"
 			},
 			"columnDelimiter": ",",
