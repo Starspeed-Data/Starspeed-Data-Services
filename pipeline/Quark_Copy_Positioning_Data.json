@@ -61,31 +61,19 @@
 							},
 							{
 								"source": {
-									"name": "Sub Category",
+									"name": "Crew",
 									"type": "String",
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Sub_Category",
+									"name": "Crew",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "Non Positioning Category",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Non_Positioning_Category",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "GBP",
+									"name": "Cost_GBP",
 									"type": "String",
 									"physicalType": "String"
 								},
@@ -97,7 +85,7 @@
 							},
 							{
 								"source": {
-									"name": "Description",
+									"name": "Details",
 									"type": "String",
 									"physicalType": "String"
 								},
@@ -129,7 +117,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "CSV_Quark_Positioning_Data_2024",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				],
