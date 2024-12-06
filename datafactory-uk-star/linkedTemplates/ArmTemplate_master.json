@@ -7,21 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "datafactory-uk-star"
 		},
+		"AzureBlobStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
+		},
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
 		},
-		"starspeeddatalake_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'starspeeddatalake'"
-		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
-		},
-		"starspeeddatalake_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://starspeeddatalake.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -39,7 +35,7 @@
 		{
 			"name": "datafactory-uk-star_ArmTemplate_0",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -50,17 +46,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage_connectionString": {
+						"value": "[parameters('AzureBlobStorage_connectionString')]"
+					},
 					"SqlServer1_connectionString": {
 						"value": "[parameters('SqlServer1_connectionString')]"
 					},
-					"starspeeddatalake_accountKey": {
-						"value": "[parameters('starspeeddatalake_accountKey')]"
-					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
-					},
-					"starspeeddatalake_properties_typeProperties_url": {
-						"value": "[parameters('starspeeddatalake_properties_typeProperties_url')]"
 					}
 				}
 			},

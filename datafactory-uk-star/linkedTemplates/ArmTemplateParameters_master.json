@@ -5,17 +5,14 @@
 		"factoryName": {
 			"value": "datafactory-uk-star"
 		},
-		"SqlServer1_connectionString": {
+		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
-		"starspeeddatalake_accountKey": {
+		"SqlServer1_connectionString": {
 			"value": ""
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
-		},
-		"starspeeddatalake_properties_typeProperties_url": {
-			"value": "https://starspeeddatalake.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""
