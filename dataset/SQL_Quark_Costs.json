@@ -1,0 +1,122 @@
+{
+	"name": "SQL_Quark_Costs",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Category",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub_Category",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Non_Positioning_Category",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Date",
+				"type": "date"
+			},
+			{
+				"name": "Crew",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Supplier",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Cost_GBP",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Client_Owner_Charter_Training_Starspeed",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Cancellation_Amendments_notes",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Date_of_Flight",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Flight_Route_Details",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Fare",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Class",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Date_of_Stay",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "No_Nights",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Hotel_Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Location_City_Airport_ICAO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Invoice_No",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Rental_Company",
+				"type": "nvarchar"
+			},
+			{
+				"name": "No_Days",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Start_Date",
+				"type": "nvarchar"
+			},
+			{
+				"name": "End_Date",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "Details",
+				"type": "varchar"
+			},
+			{
+				"name": "Year",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "fct_quark_costs"
+		}
+	}
+}
