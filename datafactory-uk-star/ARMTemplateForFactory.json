@@ -417,31 +417,19 @@
 									},
 									{
 										"source": {
-											"name": "Sub Category",
+											"name": "Crew",
 											"type": "String",
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Sub_Category",
+											"name": "Crew",
 											"type": "String",
 											"physicalType": "nvarchar"
 										}
 									},
 									{
 										"source": {
-											"name": "Non Positioning Category",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Non_Positioning_Category",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "GBP",
+											"name": "Cost_GBP",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -453,7 +441,7 @@
 									},
 									{
 										"source": {
-											"name": "Description",
+											"name": "Details",
 											"type": "String",
 											"physicalType": "String"
 										},
@@ -485,7 +473,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "CSV_Quark_Positioning_Data_2024",
+								"referenceName": "DelimitedText2",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -508,7 +496,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/CSV_Quark_Positioning_Data_2024')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]",
 				"[concat(variables('factoryId'), '/datasets/SQL_Quark_Costs')]"
 			]
 		},
@@ -1189,6 +1177,62 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/CSV_Quark_Positioning_Data_2024')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Azure Blob Storage"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Quark_Per_Diem_2023_2024.csv",
+						"container": "temp-files"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Year",
+						"type": "String"
+					},
+					{
+						"name": "Category",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Crew",
+						"type": "String"
+					},
+					{
+						"name": "Details",
+						"type": "String"
+					},
+					{
+						"name": "Cost_GBP",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
 			]
 		}
 	]
