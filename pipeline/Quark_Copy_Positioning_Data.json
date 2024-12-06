@@ -37,6 +37,30 @@
 						"mappings": [
 							{
 								"source": {
+									"name": "Category",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Category",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Date",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
 									"name": "Sub Category",
 									"type": "String",
 									"physicalType": "String"
@@ -61,18 +85,6 @@
 							},
 							{
 								"source": {
-									"name": "Date",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Date",
-									"type": "DateTime",
-									"physicalType": "date"
-								}
-							},
-							{
-								"source": {
 									"name": "GBP",
 									"type": "String",
 									"physicalType": "String"
@@ -93,6 +105,18 @@
 									"name": "Details",
 									"type": "String",
 									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Year",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Year",
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							}
 						],
