@@ -11,13 +11,49 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
+		"Penzance_External_Sharepoint_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Penzance_External_Sharepoint'"
+		},
+		"SFTPAeroCRS_privateKeyContent": {
+			"type": "secureString",
+			"metadata": "Secure string for 'privateKeyContent' of 'SFTPAeroCRS'"
+		},
+		"SFTPAeroCRS_passPhrase": {
+			"type": "secureString",
+			"metadata": "Secure string for 'passPhrase' of 'SFTPAeroCRS'"
+		},
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
 		},
+		"starspeeddatalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'starspeeddatalake'"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://qleap.sharepoint.com/:x:/r/sites/PenzanceExternal/Documents/DAILY%20STATS%20-%20LIVE/Daily%20Stats%20-%20Live.xlsm?d=w9556e19d49f244be96e6ee9c083b8b04&csf=1&web=1&e=ijTjfN"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "joel.sud@starspeed.co.uk"
+		},
+		"SFTPAeroCRS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "sftp.aerocrs.com"
+		},
+		"SFTPAeroCRS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "aerocrs_starspeed"
+		},
+		"starspeeddatalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://starspeeddatalake.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -49,11 +85,38 @@
 					"AzureBlobStorage_connectionString": {
 						"value": "[parameters('AzureBlobStorage_connectionString')]"
 					},
+					"Penzance_External_Sharepoint_password": {
+						"value": "[parameters('Penzance_External_Sharepoint_password')]"
+					},
+					"SFTPAeroCRS_privateKeyContent": {
+						"value": "[parameters('SFTPAeroCRS_privateKeyContent')]"
+					},
+					"SFTPAeroCRS_passPhrase": {
+						"value": "[parameters('SFTPAeroCRS_passPhrase')]"
+					},
 					"SqlServer1_connectionString": {
 						"value": "[parameters('SqlServer1_connectionString')]"
 					},
+					"starspeeddatalake_accountKey": {
+						"value": "[parameters('starspeeddatalake_accountKey')]"
+					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
+					"Penzance_External_Sharepoint_properties_typeProperties_url": {
+						"value": "[parameters('Penzance_External_Sharepoint_properties_typeProperties_url')]"
+					},
+					"Penzance_External_Sharepoint_properties_typeProperties_userName": {
+						"value": "[parameters('Penzance_External_Sharepoint_properties_typeProperties_userName')]"
+					},
+					"SFTPAeroCRS_properties_typeProperties_host": {
+						"value": "[parameters('SFTPAeroCRS_properties_typeProperties_host')]"
+					},
+					"SFTPAeroCRS_properties_typeProperties_userName": {
+						"value": "[parameters('SFTPAeroCRS_properties_typeProperties_userName')]"
+					},
+					"starspeeddatalake_properties_typeProperties_url": {
+						"value": "[parameters('starspeeddatalake_properties_typeProperties_url')]"
 					}
 				}
 			},

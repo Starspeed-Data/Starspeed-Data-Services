@@ -8,11 +8,38 @@
 		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
+		"Penzance_External_Sharepoint_password": {
+			"value": ""
+		},
+		"SFTPAeroCRS_privateKeyContent": {
+			"value": ""
+		},
+		"SFTPAeroCRS_passPhrase": {
+			"value": ""
+		},
 		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"starspeeddatalake_accountKey": {
 			"value": ""
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_url": {
+			"value": "https://qleap.sharepoint.com/:x:/r/sites/PenzanceExternal/Documents/DAILY%20STATS%20-%20LIVE/Daily%20Stats%20-%20Live.xlsm?d=w9556e19d49f244be96e6ee9c083b8b04&csf=1&web=1&e=ijTjfN"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_userName": {
+			"value": "joel.sud@starspeed.co.uk"
+		},
+		"SFTPAeroCRS_properties_typeProperties_host": {
+			"value": "sftp.aerocrs.com"
+		},
+		"SFTPAeroCRS_properties_typeProperties_userName": {
+			"value": "aerocrs_starspeed"
+		},
+		"starspeeddatalake_properties_typeProperties_url": {
+			"value": "https://starspeeddatalake.dfs.core.windows.net/"
 		}
 	}
 }

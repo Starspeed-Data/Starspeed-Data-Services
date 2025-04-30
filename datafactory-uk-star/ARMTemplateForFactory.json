@@ -11,495 +11,55 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
+		"Penzance_External_Sharepoint_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Penzance_External_Sharepoint'"
+		},
+		"SFTPAeroCRS_privateKeyContent": {
+			"type": "secureString",
+			"metadata": "Secure string for 'privateKeyContent' of 'SFTPAeroCRS'"
+		},
+		"SFTPAeroCRS_passPhrase": {
+			"type": "secureString",
+			"metadata": "Secure string for 'passPhrase' of 'SFTPAeroCRS'"
+		},
 		"SqlServer1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
 		},
+		"starspeeddatalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'starspeeddatalake'"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://qleap.sharepoint.com/:x:/r/sites/PenzanceExternal/Documents/DAILY%20STATS%20-%20LIVE/Daily%20Stats%20-%20Live.xlsm?d=w9556e19d49f244be96e6ee9c083b8b04&csf=1&web=1&e=ijTjfN"
+		},
+		"Penzance_External_Sharepoint_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "joel.sud@starspeed.co.uk"
+		},
+		"SFTPAeroCRS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "sftp.aerocrs.com"
+		},
+		"SFTPAeroCRS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "aerocrs_starspeed"
+		},
+		"starspeeddatalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://starspeeddatalake.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/Copy Service Report')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SqlServerSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "PNR ref.",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PNRRef",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "PNR ID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PNRID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "PNR Date",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PNRDate",
-											"type": "DateTime",
-											"physicalType": "date"
-										}
-									},
-									{
-										"source": {
-											"name": "PNR Time",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PNRTime",
-											"type": "TimeSpan",
-											"physicalType": "time"
-										}
-									},
-									{
-										"source": {
-											"name": "Service Date",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ServiceDate",
-											"type": "DateTime",
-											"physicalType": "date"
-										}
-									},
-									{
-										"source": {
-											"name": "Service Time",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ServiceTime",
-											"type": "TimeSpan",
-											"physicalType": "time"
-										}
-									},
-									{
-										"source": {
-											"name": "Days Before",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DaysBefore",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Months Before",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "MonthsBefore",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Service type",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ServiceType",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Class/Code",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Class",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Route Name/Details",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "RouteName",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "From",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "From",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "To",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "To",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Adults",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Adults",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Kids",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Kids",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Infants",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Infants",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Fare",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Fare",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Total",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Total",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Agent name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "AgentName",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Customer name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "CustomerName",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "User",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "User",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SQL_Penzance_Service_Report",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "Penzance"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
-				"[concat(variables('factoryId'), '/datasets/SQL_Penzance_Service_Report')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Quark_Copy_Positioning_Data')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "SqlServerSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Category",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Category",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Date",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Date",
-											"type": "DateTime",
-											"physicalType": "date"
-										}
-									},
-									{
-										"source": {
-											"name": "Crew",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Crew",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Cost_GBP",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Cost_GBP",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Details",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Details",
-											"type": "String",
-											"physicalType": "varchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Year",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Year",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "SQL_Quark_Costs",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "Quark"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]",
-				"[concat(variables('factoryId'), '/datasets/SQL_Quark_Costs')]"
-			]
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/API_Air_Maestro_Active_Personnel')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -548,530 +108,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CSV_Quark_Positioning_Data_2024')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Azure Blob Storage"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Positioning_Data_June_2024_Formatted.csv",
-						"container": "temp-files"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Date",
-						"type": "String"
-					},
-					{
-						"name": "Description",
-						"type": "String"
-					},
-					{
-						"name": "Sub Category",
-						"type": "String"
-					},
-					{
-						"name": "Non Positioning Category",
-						"type": "String"
-					},
-					{
-						"name": "GBP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Azure Blob Storage"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Customer Booking Data.csv",
-						"container": "aero-c"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "PNR ref.",
-						"type": "String"
-					},
-					{
-						"name": "PNR ID",
-						"type": "String"
-					},
-					{
-						"name": "PNR Date",
-						"type": "String"
-					},
-					{
-						"name": "PNR Time",
-						"type": "String"
-					},
-					{
-						"name": "Service Date",
-						"type": "String"
-					},
-					{
-						"name": "Service Time",
-						"type": "String"
-					},
-					{
-						"name": "Days Before",
-						"type": "String"
-					},
-					{
-						"name": "Months Before",
-						"type": "String"
-					},
-					{
-						"name": "Service type",
-						"type": "String"
-					},
-					{
-						"name": "Class/Code",
-						"type": "String"
-					},
-					{
-						"name": "Route Name/Details",
-						"type": "String"
-					},
-					{
-						"name": "From",
-						"type": "String"
-					},
-					{
-						"name": "To",
-						"type": "String"
-					},
-					{
-						"name": "Service load",
-						"type": "String"
-					},
-					{
-						"name": "Adults",
-						"type": "String"
-					},
-					{
-						"name": "Kids",
-						"type": "String"
-					},
-					{
-						"name": "Infants",
-						"type": "String"
-					},
-					{
-						"name": "Fare",
-						"type": "String"
-					},
-					{
-						"name": "VAT",
-						"type": "String"
-					},
-					{
-						"name": "Total Tax",
-						"type": "String"
-					},
-					{
-						"name": "Tax1",
-						"type": "String"
-					},
-					{
-						"name": "Tax2",
-						"type": "String"
-					},
-					{
-						"name": "Tax3",
-						"type": "String"
-					},
-					{
-						"name": "Tax4",
-						"type": "String"
-					},
-					{
-						"name": "Total",
-						"type": "String"
-					},
-					{
-						"name": "Currency",
-						"type": "String"
-					},
-					{
-						"name": "Remark/Details",
-						"type": "String"
-					},
-					{
-						"name": "Last known invoice",
-						"type": "String"
-					},
-					{
-						"name": "Ticket number",
-						"type": "String"
-					},
-					{
-						"name": "Agent name",
-						"type": "String"
-					},
-					{
-						"name": "Customer name",
-						"type": "String"
-					},
-					{
-						"name": "User",
-						"type": "String"
-					},
-					{
-						"name": "Column1",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL_Penzance_Flight_Board')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SQL"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "Penzance",
-					"table": "FACT_FlightBoard"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL_Penzance_Service_Report')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SQL"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "PNRRef",
-						"type": "nvarchar"
-					},
-					{
-						"name": "PNRID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "PNRDate",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "ServiceDate",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "ServiceType",
-						"type": "nvarchar"
-					},
-					{
-						"name": "ClassCode",
-						"type": "nvarchar"
-					},
-					{
-						"name": "RouteNameDetails",
-						"type": "nvarchar"
-					},
-					{
-						"name": "From",
-						"type": "nvarchar"
-					},
-					{
-						"name": "To",
-						"type": "nvarchar"
-					},
-					{
-						"name": "ServiceLoad",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Adults",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Kids",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Infants",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Fare",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "VAT",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "TotalTax",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Tax1",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Tax2",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Tax3",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Tax4",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Total",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Currency",
-						"type": "nvarchar"
-					},
-					{
-						"name": "RemarkDetails",
-						"type": "nvarchar"
-					},
-					{
-						"name": "LastKnownInvoice",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "TicketNumber",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "AgentName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "CustomerName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "User",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Column",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "penzance",
-					"table": "customer_bookings"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL_Quark_Costs')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SQL"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "Category",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Sub_Category",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Non_Positioning_Category",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Date",
-						"type": "date"
-					},
-					{
-						"name": "Crew",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Supplier",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Cost_GBP",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Client_Owner_Charter_Training_Starspeed",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Cancellation_Amendments_notes",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Date_of_Flight",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Flight_Route_Details",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Fare",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Class",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Date_of_Stay",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "No_Nights",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Hotel_Name",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Location_City_Airport_ICAO",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Invoice_No",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Rental_Company",
-						"type": "nvarchar"
-					},
-					{
-						"name": "No_Days",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Start_Date",
-						"type": "nvarchar"
-					},
-					{
-						"name": "End_Date",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "Details",
-						"type": "varchar"
-					},
-					{
-						"name": "Year",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "fct_quark_costs"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1106,6 +142,51 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Penzance_External_Sharepoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('Penzance_External_Sharepoint_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('Penzance_External_Sharepoint_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Penzance_External_Sharepoint_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SFTPAeroCRS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Sftp",
+				"typeProperties": {
+					"host": "[parameters('SFTPAeroCRS_properties_typeProperties_host')]",
+					"port": 22,
+					"skipHostKeyValidation": true,
+					"authenticationType": "SshPublicKey",
+					"userName": "[parameters('SFTPAeroCRS_properties_typeProperties_userName')]",
+					"privateKeyContent": {
+						"type": "SecureString",
+						"value": "[parameters('SFTPAeroCRS_privateKeyContent')]"
+					},
+					"passPhrase": {
+						"type": "SecureString",
+						"value": "[parameters('SFTPAeroCRS_passPhrase')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1119,121 +200,22 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
+			"name": "[concat(parameters('factoryName'), '/starspeeddatalake')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "MappingDataFlow",
+				"description": "Starspeed Azure Data Lake Storage Gen 2",
+				"annotations": [],
+				"type": "AzureBlobFS",
 				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "CSV_Quark_Positioning_Data_2024",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "CSV_Quark_Positioning_Data_2024",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "FormattedDate",
-							"description": "Format the Date column"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          Date as string,",
-						"          Description as string,",
-						"          {Sub Category} as string,",
-						"          {Non Positioning Category} as string,",
-						"          GBP as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 derive(Date = toTimestamp(Date, 'yyyy-MM-dd')) ~> FormattedDate",
-						"FormattedDate sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          Date as string,",
-						"          Description as string,",
-						"          {Sub Category} as string,",
-						"          {Non Positioning Category} as string,",
-						"          GBP as string",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
-					]
+					"url": "[parameters('starspeeddatalake_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('starspeeddatalake_accountKey')]"
+					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/CSV_Quark_Positioning_Data_2024')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Azure Blob Storage"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Quark_Per_Diem_2023_2024.csv",
-						"container": "temp-files"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Year",
-						"type": "String"
-					},
-					{
-						"name": "Category",
-						"type": "String"
-					},
-					{
-						"name": "Date",
-						"type": "String"
-					},
-					{
-						"name": "Crew",
-						"type": "String"
-					},
-					{
-						"name": "Details",
-						"type": "String"
-					},
-					{
-						"name": "Cost_GBP",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
