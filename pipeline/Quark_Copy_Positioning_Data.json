@@ -132,6 +132,8 @@
 		"folder": {
 			"name": "Quark"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2024-12-06T15:33:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

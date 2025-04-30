@@ -15,5 +15,6 @@
 			"schema": "Penzance",
 			"table": "FACT_FlightBoard"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

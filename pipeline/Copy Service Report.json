@@ -312,6 +312,8 @@
 		"folder": {
 			"name": "Penzance"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2024-12-06T13:14:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
