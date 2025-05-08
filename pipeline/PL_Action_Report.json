@@ -259,6 +259,91 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Insert Pipeline Log",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_adf_insert_pipeline_log]",
+					"storedProcedureParameters": {
+						"DurationSeconds": {
+							"value": "",
+							"type": "Int32"
+						},
+						"EndTime": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"ErrorMessage": {
+							"value": "",
+							"type": "String"
+						},
+						"LastProcessedTimestamp": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"PipelineID": {
+							"value": "",
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": "",
+							"type": "String"
+						},
+						"Platform": {
+							"value": "",
+							"type": "String"
+						},
+						"RecordsProcessed": {
+							"value": "",
+							"type": "Int32"
+						},
+						"RunID": {
+							"value": "",
+							"type": "String"
+						},
+						"RunURL": {
+							"value": "",
+							"type": "String"
+						},
+						"StartTime": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"Status": {
+							"value": "",
+							"type": "String"
+						},
+						"TriggerName": {
+							"value": "",
+							"type": "String"
+						},
+						"TriggerType": {
+							"value": "",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
