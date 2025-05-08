@@ -1,0 +1,13 @@
+{
+	"name": "API_Air_Maestro_Action_Report",
+	"properties": {
+		"description": "API Connection to Action Report from Air Maestro",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://starspeed.airmaestro.co.uk/api/reports/180?Param436=2025-05-08&Param437=2025-05-08&AsAttachment=False",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
