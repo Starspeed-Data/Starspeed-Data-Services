@@ -1,0 +1,269 @@
+{
+	"name": "PL_Action_Report",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Action Report from Air Maestro to SQL",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"ActionRefNo"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['DueDate']"
+								},
+								"sink": {
+									"name": "DueDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RequestDateTime']"
+								},
+								"sink": {
+									"name": "RequestDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['FindingID']"
+								},
+								"sink": {
+									"name": "FindingID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RootCause']"
+								},
+								"sink": {
+									"name": "RootCause",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CorrectiveAction']"
+								},
+								"sink": {
+									"name": "CorrectiveAction",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ActionNote']"
+								},
+								"sink": {
+									"name": "ActionNote",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ActionType']"
+								},
+								"sink": {
+									"name": "ActionType",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ActionRefNo']"
+								},
+								"sink": {
+									"name": "ActionRefNo",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Status']"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Requestor']"
+								},
+								"sink": {
+									"name": "Requestor",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Requestee']"
+								},
+								"sink": {
+									"name": "Requestee",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Cause']"
+								},
+								"sink": {
+									"name": "Cause",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ReportTitle']"
+								},
+								"sink": {
+									"name": "ReportTitle",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ReportTypeName']"
+								},
+								"sink": {
+									"name": "ReportTypeName",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "API_Air_Mestro_Action_Report",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_Prod_Action_Report",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Lookup Last Processed Timestamp",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Copy Action Report from Air Maestro to SQL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT *\nFROM stg_airmaestro_action_report\nWHERE RequestDateTime > (\n    SELECT MAX(LastProcessedTimestamp)\n    FROM ctl_pipeline_logs\n    WHERE PipelineName = 'PL_Action_Report' AND Status = 'Success'\n);\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SQL_Prod_Action_Report",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Last Processed Timestamp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Last Processed Timestamp').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "SendHTTPRequest",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "POST",
+								"headers": {
+									"Content-Type": "application/json\n\n"
+								},
+								"url": "https://prod-12.westeurope.logic.azure.com:443/workflows/158a44a20e2345ed88b6d87250b17a5a/triggers/manual/paths/invoke?api-version=2016-06-01",
+								"body": {
+									"value": "{\n  \"Requestee\": \"@{item().Requestee}\",\n  \"Requestor\": \"@{item().Requestor}\",\n  \"ActionRefNo\": \"@{item().ActionRefNo}\",\n  \"RequestDateTime\": \"@{item().RequestDateTime}\",\n  \"DueDate\": \"@{item().DueDate}\",\n  \"ReportTitle\": \"@{item().ReportTitle}\",\n  \"ActionNote\": \"@{item().ActionNote}\"\n}",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "Safety Pipelines"
+		},
+		"annotations": []
+	}
+}

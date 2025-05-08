@@ -5,12 +5,6 @@
 			"referenceName": "API_Air_Maestro_Action_Report",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"Authorization": {
-				"type": "string",
-				"defaultValue": "'28g(Bz,_43b6C9L!H-uJ!9oY(cL,P-Vcs1abZGT.r*N)06ffuWj(8f9J3svpQLK"
-			}
-		},
 		"folder": {
 			"name": "API_Air_Maestro"
 		},
