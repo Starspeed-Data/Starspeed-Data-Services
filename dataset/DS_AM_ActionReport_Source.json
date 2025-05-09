@@ -1,5 +1,5 @@
 {
-	"name": "API_Air_Mestro_Action_Report",
+	"name": "DS_AM_ActionReport_Source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "API_Air_Maestro_Action_Report",

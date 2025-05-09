@@ -1,5 +1,5 @@
 {
-	"name": "PL_Action_Report",
+	"name": "PL_TEST_AM_DW_ActionReport",
 	"properties": {
 		"activities": [
 			{
@@ -170,13 +170,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "API_Air_Mestro_Action_Report",
+						"referenceName": "DS_AM_ActionReport_Source",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "SQL_Prod_Action_Report",
+						"referenceName": "DS_SQL_AirMaestroActionReport_Target",
 						"type": "DatasetReference"
 					}
 				]
@@ -208,7 +208,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "SQL_Prod_Action_Report",
+						"referenceName": "DS_SQL_AirMaestroActionReport_Target",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -283,59 +283,410 @@
 					"storedProcedureName": "[dbo].[sp_adf_insert_pipeline_log]",
 					"storedProcedureParameters": {
 						"DurationSeconds": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						},
 						"EndTime": {
-							"value": "",
+							"value": null,
 							"type": "DateTime"
 						},
 						"ErrorMessage": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"LastProcessedTimestamp": {
-							"value": "",
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
 							"type": "DateTime"
 						},
 						"PipelineID": {
-							"value": "",
+							"value": "PL-ADF-001",
 							"type": "String"
 						},
 						"PipelineName": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"Platform": {
-							"value": "",
+							"value": "ADF",
 							"type": "String"
 						},
 						"RecordsProcessed": {
-							"value": "",
+							"value": {
+								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
 						"RunID": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"RunURL": {
-							"value": "",
+							"value": {
+								"value": "@concat('https://adf.azure.com/en/monitoring/pipelineruns/', pipeline().RunId)",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"StartTime": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
 							"type": "DateTime"
 						},
 						"Status": {
-							"value": "",
+							"value": "Succeeded",
 							"type": "String"
 						},
 						"TriggerName": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"TriggerType": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Insert Failed Pipeline Log",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy Action Report from Air Maestro to SQL",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_adf_insert_pipeline_log]",
+					"storedProcedureParameters": {
+						"DurationSeconds": {
+							"value": null,
+							"type": "Int32"
+						},
+						"EndTime": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"ErrorMessage": {
+							"value": null,
+							"type": "String"
+						},
+						"LastProcessedTimestamp": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"PipelineID": {
+							"value": "PL-ADF-001",
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Platform": {
+							"value": "ADF",
+							"type": "String"
+						},
+						"RecordsProcessed": {
+							"value": {
+								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"RunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RunURL": {
+							"value": {
+								"value": "@concat('https://adf.azure.com/en/monitoring/pipelineruns/', pipeline().RunId)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"Status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"TriggerName": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerType": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Insert Failed Pipeline Log_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Lookup Last Processed Timestamp",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_adf_insert_pipeline_log]",
+					"storedProcedureParameters": {
+						"DurationSeconds": {
+							"value": null,
+							"type": "Int32"
+						},
+						"EndTime": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"ErrorMessage": {
+							"value": null,
+							"type": "String"
+						},
+						"LastProcessedTimestamp": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"PipelineID": {
+							"value": "PL-ADF-001",
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Platform": {
+							"value": "ADF",
+							"type": "String"
+						},
+						"RecordsProcessed": {
+							"value": {
+								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"RunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RunURL": {
+							"value": {
+								"value": "@concat('https://adf.azure.com/en/monitoring/pipelineruns/', pipeline().RunId)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"Status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"TriggerName": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerType": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Insert Failed Pipeline Log_copy1_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_adf_insert_pipeline_log]",
+					"storedProcedureParameters": {
+						"DurationSeconds": {
+							"value": null,
+							"type": "Int32"
+						},
+						"EndTime": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"ErrorMessage": {
+							"value": null,
+							"type": "String"
+						},
+						"LastProcessedTimestamp": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"PipelineID": {
+							"value": "PL-ADF-001",
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Platform": {
+							"value": "ADF",
+							"type": "String"
+						},
+						"RecordsProcessed": {
+							"value": {
+								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"RunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RunURL": {
+							"value": {
+								"value": "@concat('https://adf.azure.com/en/monitoring/pipelineruns/', pipeline().RunId)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"Status": {
+							"value": "Failed",
+							"type": "String"
+						},
+						"TriggerName": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerType": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
