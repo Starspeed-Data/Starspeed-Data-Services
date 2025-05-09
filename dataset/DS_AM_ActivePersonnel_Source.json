@@ -1,5 +1,5 @@
 {
-	"name": "API_Air_Maestro_Active_Personnel",
+	"name": "DS_AM_ActivePersonnel_Source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "HttpServer1",
