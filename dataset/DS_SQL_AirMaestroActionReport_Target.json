@@ -1,0 +1,83 @@
+{
+	"name": "DS_SQL_AirMaestroActionReport_Target",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL Data Warehouse"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ActionRefNo",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RequestDateTime",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "DueDate",
+				"type": "date"
+			},
+			{
+				"name": "ClosedDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "Requestee",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Requestor",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Cause",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ActionType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReportTypeName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReportTitle",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FindingID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CorrectiveAction",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RootCause",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ActionNote",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "stg_airmaestro_action_report"
+		}
+	}
+}

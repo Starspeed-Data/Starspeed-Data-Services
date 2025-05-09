@@ -1,0 +1,15 @@
+{
+	"name": "DS_AM_ActionReport_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "API_Air_Maestro_Action_Report",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "API_Air_Maestro"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
