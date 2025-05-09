@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "API_Air_Maestro"
+			"name": "API"
 		},
 		"annotations": [],
 		"type": "Json",
