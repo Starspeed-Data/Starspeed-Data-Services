@@ -23,6 +23,9 @@
 		"starspeeddatalake_accountKey": {
 			"value": ""
 		},
+		"API_Air_Maestro_Action_Report_properties_typeProperties_url": {
+			"value": "https://starspeed.airmaestro.co.uk/api/reports/180?Param436=2025-05-08&Param437=2025-05-08&format=JSON&AsAttachment=False"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
 		},

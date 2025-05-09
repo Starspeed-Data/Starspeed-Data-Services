@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'starspeeddatalake'"
 		},
+		"API_Air_Maestro_Action_Report_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/180?Param436=2025-05-08&Param437=2025-05-08&format=JSON&AsAttachment=False"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
@@ -99,6 +103,9 @@
 					},
 					"starspeeddatalake_accountKey": {
 						"value": "[parameters('starspeeddatalake_accountKey')]"
+					},
+					"API_Air_Maestro_Action_Report_properties_typeProperties_url": {
+						"value": "[parameters('API_Air_Maestro_Action_Report_properties_typeProperties_url')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
