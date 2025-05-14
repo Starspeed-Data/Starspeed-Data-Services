@@ -339,6 +339,15 @@
 								"mappings": [
 									{
 										"source": {
+											"path": "$['SafetyActionID']"
+										},
+										"sink": {
+											"name": "SafetyActionID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
 											"path": "$['DueDate']"
 										},
 										"sink": {
@@ -381,6 +390,12 @@
 											"name": "CorrectiveAction",
 											"type": "String"
 										}
+									},
+									{
+										"source": {
+											"path": "$['LastUpdatedBy']"
+										},
+										"sink": {}
 									},
 									{
 										"source": {
