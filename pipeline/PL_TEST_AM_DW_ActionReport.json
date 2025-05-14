@@ -90,11 +90,6 @@
 							},
 							{
 								"source": {
-									"path": "$['LastUpdatedBy']"
-								}
-							},
-							{
-								"source": {
 									"path": "$['ActionNote']"
 								},
 								"sink": {
