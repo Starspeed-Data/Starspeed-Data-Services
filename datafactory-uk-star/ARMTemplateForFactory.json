@@ -158,12 +158,6 @@
 									},
 									{
 										"source": {
-											"path": "$['LastUpdatedBy']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
 											"path": "$['ActionNote']"
 										},
 										"sink": {
