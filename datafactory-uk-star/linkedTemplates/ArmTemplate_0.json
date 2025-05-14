@@ -191,7 +191,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_AM_ActionReport_Source')]",
+			"name": "[concat(parameters('factoryName'), '/DS_AM_ActionReport')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -212,54 +212,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_AM_ActivePersonnel_Source')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "HttpServer1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "API"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"LastName": {
-							"type": "string"
-						},
-						"FirstName": {
-							"type": "string"
-						},
-						"EmploymentStart": {
-							"type": "string"
-						},
-						"JobPosition": {
-							"type": "string"
-						},
-						"BaseName": {
-							"type": "string"
-						},
-						"LastLogin": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_AirMaestroActionReport_Target')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SQL_AirMaestroActionReport_Staging')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -376,13 +329,8 @@
 							},
 							"sink": {
 								"type": "SqlServerSink",
-								"writeBehavior": "upsert",
-								"upsertSettings": {
-									"useTempDB": true,
-									"keys": [
-										"ActionRefNo"
-									]
-								},
+								"preCopyScript": "TRUNCATE TABLE stg_airmaestro_action_report;",
+								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false
 							},
 							"enableStaging": false,
@@ -520,14 +468,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_AM_ActionReport_Source",
+								"referenceName": "DS_AM_ActionReport",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQL_AirMaestroActionReport_Target",
+								"referenceName": "DS_SQL_AirMaestroActionReport_Staging",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -560,7 +508,7 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "DS_SQL_AirMaestroActionReport_Target",
+								"referenceName": "DS_SQL_AirMaestroActionReport_Staging",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -603,7 +551,7 @@
 										"headers": {
 											"Content-Type": "application/json\n\n"
 										},
-										"url": "https://prod-12.westeurope.logic.azure.com:443/workflows/158a44a20e2345ed88b6d87250b17a5a/triggers/manual/paths/invoke?api-version=2016-06-01",
+										"url": "https://prod-12.westeurope.logic.azure.com:443/workflows/158a44a20e2345ed88b6d87250b17a5a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=bj3aJ-5Or62FGQlyqM_BJneGdFWaKt0lYd_VVGGjVeY",
 										"body": {
 											"value": "{\n  \"Requestee\": \"@{item().Requestee}\",\n  \"Requestor\": \"@{item().Requestor}\",\n  \"ActionRefNo\": \"@{item().ActionRefNo}\",\n  \"RequestDateTime\": \"@{item().RequestDateTime}\",\n  \"DueDate\": \"@{item().DueDate}\",\n  \"ReportTitle\": \"@{item().ReportTitle}\",\n  \"ActionNote\": \"@{item().ActionNote}\"\n}",
 											"type": "Expression"
@@ -1059,8 +1007,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_AM_ActionReport_Source')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQL_AirMaestroActionReport_Target')]",
+				"[concat(variables('factoryId'), '/datasets/DS_AM_ActionReport')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_AirMaestroActionReport_Staging')]",
 				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
 			]
 		}
