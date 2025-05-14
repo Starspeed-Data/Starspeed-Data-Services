@@ -165,13 +165,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_AM_ActionReport_Source",
+						"referenceName": "DS_AM_ActionReport",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQL_AirMaestroActionReport_Target",
+						"referenceName": "DS_SQL_AirMaestroActionReport_Staging",
 						"type": "DatasetReference"
 					}
 				]
@@ -203,7 +203,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "DS_SQL_AirMaestroActionReport_Target",
+						"referenceName": "DS_SQL_AirMaestroActionReport_Staging",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false

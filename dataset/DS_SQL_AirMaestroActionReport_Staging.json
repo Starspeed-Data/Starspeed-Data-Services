@@ -1,5 +1,5 @@
 {
-	"name": "DS_SQL_AirMaestroActionReport_Target",
+	"name": "DS_SQL_AirMaestroActionReport_Staging",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SqlServer1",
