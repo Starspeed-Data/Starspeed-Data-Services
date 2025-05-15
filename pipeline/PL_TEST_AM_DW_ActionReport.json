@@ -207,7 +207,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT *\nFROM stg_airmaestro_action_report\nWHERE RequestDateTime > (\n    SELECT MAX(LastProcessedTimestamp)\n    FROM ctl_pipeline_logs\n    WHERE PipelineName = 'PL_Action_Report' AND Status = 'Success'\n);\n",
+						"sqlReaderQuery": "SELECT *\nFROM stg_airmaestro_action_report\nWHERE RequestDateTime > '2025-05-01' -- Previously: (SELECT MAX(LastProcessedTimestamp) FROM ctl_pipeline_logs WHERE PipelineID= 'PL-ADF-001' AND Status = 'Success')\n;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
