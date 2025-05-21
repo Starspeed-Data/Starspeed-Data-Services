@@ -1022,7 +1022,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_PROD_AM_DW_ActionReport')]",
+			"name": "[concat(parameters('factoryName'), '/PL_TEST_AM_DW_ActionReportIngest')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1443,6 +1443,45 @@
 				"[concat(variables('factoryId'), '/datasets/DS_AM_ActionReport')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_AirMaestroActionReport_Staging')]",
 				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TRG_ActionReportIngest_Schd_Daily_Test')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Triggers daily at 5 AM for the Action Report Ingest pipeline.",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_TEST_AM_DW_ActionReportIngest",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2025-05-21T14:46:00",
+						"timeZone": "GMT Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								5
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_TEST_AM_DW_ActionReportIngest')]"
 			]
 		}
 	]
