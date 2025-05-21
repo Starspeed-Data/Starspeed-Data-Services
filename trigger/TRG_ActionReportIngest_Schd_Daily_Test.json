@@ -7,7 +7,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "PL_PROD_AM_DW_ActionReportIngest",
+					"referenceName": "PL_TEST_AM_DW_ActionReportIngest",
 					"type": "PipelineReference"
 				}
 			}
