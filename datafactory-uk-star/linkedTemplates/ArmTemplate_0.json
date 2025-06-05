@@ -1022,7 +1022,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_TEST_AM_DW_ActionReportIngest')]",
+			"name": "[concat(parameters('factoryName'), '/PL_PROD_AM_DW_ActionReportIngest')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1446,7 +1446,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/TRG_ActionReportIngest_Schd_Daily_Test')]",
+			"name": "[concat(parameters('factoryName'), '/TRG_ActionReportIngest_Schd_Daily')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1456,7 +1456,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "PL_TEST_AM_DW_ActionReportIngest",
+							"referenceName": "PL_PROD_AM_DW_ActionReportIngest",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1481,7 +1481,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_TEST_AM_DW_ActionReportIngest')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_PROD_AM_DW_ActionReportIngest')]"
 			]
 		}
 	]
