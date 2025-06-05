@@ -1,5 +1,5 @@
 {
-	"name": "TRG_ActionReportIngest_Schd_Daily_Test",
+	"name": "TRG_ActionReportIngest_Schd_Daily",
 	"properties": {
 		"description": "Triggers daily at 5 AM for the Action Report Ingest pipeline.",
 		"annotations": [],
