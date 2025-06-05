@@ -1,5 +1,5 @@
 {
-	"name": "PL_TEST_AM_DW_ActionReportIngest",
+	"name": "PL_PROD_AM_DW_ActionReportIngest",
 	"properties": {
 		"activities": [
 			{
