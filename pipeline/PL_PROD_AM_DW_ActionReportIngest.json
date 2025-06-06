@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy Action Report from Air Maestro to SQL",
+				"name": "Data Ingest from Air Maestro",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -190,7 +190,13 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy Action Report from Air Maestro to SQL",
+						"activity": "Data Ingest from Air Maestro",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "Data Cleaning",
 						"dependencyConditions": [
 							"Failed"
 						]
@@ -299,7 +305,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy Action Report from Air Maestro to SQL",
+						"activity": "Data Cleaning",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -400,6 +406,33 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Data Cleaning",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Data Ingest from Air Maestro",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Workspace/Shared/Starspeed/Starspeed/Safety/External Safety Reporting/ETL_ExternalSafetyActionReport_v1"
+				},
+				"linkedServiceName": {
+					"referenceName": "Databricks_Luxaviation",
 					"type": "LinkedServiceReference"
 				}
 			}
