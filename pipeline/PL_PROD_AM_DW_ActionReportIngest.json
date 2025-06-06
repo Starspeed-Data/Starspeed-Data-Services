@@ -249,7 +249,7 @@
 						},
 						"RecordsProcessed": {
 							"value": {
-								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"value": "@activity('Data Ingest from Air Maestro').output.rowsCopied",
 								"type": "Expression"
 							},
 							"type": "Int32"
@@ -358,7 +358,7 @@
 						},
 						"RecordsProcessed": {
 							"value": {
-								"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+								"value": "@activity('Data Ingest from Air Maestro').output.rowsCopied",
 								"type": "Expression"
 							},
 							"type": "Int32"
