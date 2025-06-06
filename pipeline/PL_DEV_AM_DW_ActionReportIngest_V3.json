@@ -1,5 +1,5 @@
 {
-	"name": "PL_PROD_AM_DW_ActionReportIngest",
+	"name": "PL_DEV_AM_DW_ActionReportIngest_V3",
 	"properties": {
 		"activities": [
 			{
@@ -194,6 +194,12 @@
 						"dependencyConditions": [
 							"Failed"
 						]
+					},
+					{
+						"activity": "Data Cleaning",
+						"dependencyConditions": [
+							"Failed"
+						]
 					}
 				],
 				"policy": {
@@ -299,7 +305,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Data Ingest from Air Maestro",
+						"activity": "Data Cleaning",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -400,6 +406,36 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Data Cleaning",
+				"type": "DatabricksJob",
+				"dependsOn": [
+					{
+						"activity": "Data Ingest from Air Maestro",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"jobId": {
+						"value": "749647670540041",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "Databricks_Luxaviation",
 					"type": "LinkedServiceReference"
 				}
 			}
