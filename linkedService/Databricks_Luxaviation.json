@@ -1,0 +1,13 @@
+{
+	"name": "Databricks_Luxaviation",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-4306440247491758.18.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/e6e7827d-f92e-41bf-b5e3-7a3b10519842/resourceGroups/databricks-weu-rg/providers/Microsoft.Databricks/workspaces/lux-databricks-weu-ws",
+			"existingClusterId": "1113-071307-u0m8xhxs"
+		}
+	}
+}
