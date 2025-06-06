@@ -35,6 +35,10 @@
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/180?format=JSON&AsAttachment=False"
 		},
+		"Databricks_Luxaviation_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1113-071307-u0m8xhxs"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
@@ -793,7 +797,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy Action Report from Air Maestro to SQL",
+						"name": "Data Ingest from Air Maestro",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -982,7 +986,13 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Copy Action Report from Air Maestro to SQL",
+								"activity": "Data Ingest from Air Maestro",
+								"dependencyConditions": [
+									"Failed"
+								]
+							},
+							{
+								"activity": "Data Cleaning",
 								"dependencyConditions": [
 									"Failed"
 								]
@@ -1035,7 +1045,7 @@
 								},
 								"RecordsProcessed": {
 									"value": {
-										"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+										"value": "@activity('Data Ingest from Air Maestro').output.rowsCopied",
 										"type": "Expression"
 									},
 									"type": "Int32"
@@ -1091,7 +1101,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Copy Action Report from Air Maestro to SQL",
+								"activity": "Data Cleaning",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1144,7 +1154,7 @@
 								},
 								"RecordsProcessed": {
 									"value": {
-										"value": "@activity('Copy Action Report from Air Maestro to SQL').output.rowsCopied",
+										"value": "@activity('Data Ingest from Air Maestro').output.rowsCopied",
 										"type": "Expression"
 									},
 									"type": "Int32"
@@ -1194,6 +1204,33 @@
 							"referenceName": "SqlServer1",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "Data Cleaning",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Data Ingest from Air Maestro",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Workspace/Shared/Starspeed/Starspeed/Safety/External Safety Reporting/ETL_ExternalSafetyActionReport_v1"
+						},
+						"linkedServiceName": {
+							"referenceName": "Databricks_Luxaviation",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -1207,7 +1244,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_AM_ActionReport')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_AirMaestroActionReport_Staging')]",
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]",
+				"[concat(variables('factoryId'), '/linkedServices/Databricks_Luxaviation')]"
 			]
 		},
 		{
@@ -1344,6 +1382,22 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Databricks_Luxaviation')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-4306440247491758.18.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/e6e7827d-f92e-41bf-b5e3-7a3b10519842/resourceGroups/databricks-weu-rg/providers/Microsoft.Databricks/workspaces/lux-databricks-weu-ws",
+					"existingClusterId": "[parameters('Databricks_Luxaviation_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []

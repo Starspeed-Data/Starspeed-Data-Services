@@ -26,6 +26,9 @@
 		"API_Air_Maestro_Action_Report_properties_typeProperties_url": {
 			"value": "https://starspeed.airmaestro.co.uk/api/reports/180?format=JSON&AsAttachment=False"
 		},
+		"Databricks_Luxaviation_properties_typeProperties_existingClusterId": {
+			"value": "1113-071307-u0m8xhxs"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://starspeed.airmaestro.co.uk/api/reports/157/?format=JSON&AsAttachment=False"
 		},
