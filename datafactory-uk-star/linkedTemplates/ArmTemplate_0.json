@@ -1458,7 +1458,7 @@
 					},
 					{
 						"name": "Data Cleaning",
-						"type": "DatabricksNotebook",
+						"type": "DatabricksJob",
 						"dependsOn": [
 							{
 								"activity": "Data Ingest from Air Maestro",
@@ -1476,7 +1476,10 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Workspace/Shared/Starspeed/Starspeed/Safety/External Safety Reporting/ETL_ExternalSafetyActionReport_v1"
+							"jobId": {
+								"value": "749647670540041",
+								"type": "Expression"
+							}
 						},
 						"linkedServiceName": {
 							"referenceName": "Databricks_Luxaviation",
